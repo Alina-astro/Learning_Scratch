@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Header.module.scss';
-import logo from '../../assets/icons/logo.png';
+import logo from '../../assets/icons/logo_header.png';
 
 export default function Header({ onLogin, onRegister }) {
   return (

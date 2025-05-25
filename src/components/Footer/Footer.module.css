@@ -1,0 +1,11 @@
+footer {
+  background: linear-gradient(0deg, rgb(0, 153, 82) 0%, rgb(0, 199, 106) 50%, rgb(0, 107, 57) 100%);
+  padding: 1.5rem 2rem;
+  text-align: center;
+}
+footer div {
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Font-main";
+}/*# sourceMappingURL=Footer.module.css.map */

@@ -36,7 +36,6 @@ export default function App() {
             element={
               <>
                 <HeroSection />
-                <LevelsSection onLearnClick={handleLoginOpen} />
               </>
             }
           />

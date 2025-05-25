@@ -1,0 +1,15 @@
+@use "../../assets/styles/variables" as *;
+@use "../../assets/styles/mixins" as *;
+
+footer {
+  @include header-gradient;
+  padding: 1.5rem 2rem;
+  text-align: center;
+
+  div {
+    color: $color-white;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: $font-main;
+  }
+}

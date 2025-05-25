@@ -1,23 +1,17 @@
-@use "./assets/styles/variables" as *;
-
 @font-face {
   font-family: "Font-main";
   src: url("./assets/fonts/Jura-VariableFont_wght.ttf");
 }
-
 @font-face {
   font-family: "Font-title";
   src: url("./assets/fonts/Marck-Script.ttf");
 }
-
 :root {
   font-family: "Font-main", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color: $color-main-text;
-  background-color: $color-main-bg;
-
+  color: rgb(0, 78, 57);
+  background-color: rgb(155, 241, 184);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -30,4 +24,4 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
+}/*# sourceMappingURL=index.css.map */

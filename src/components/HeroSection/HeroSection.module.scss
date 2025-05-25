@@ -1,0 +1,25 @@
+@use "../../assets/styles/variables" as *;
+@use "../../assets/styles/mixins" as *;
+
+section {
+  padding: 1rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+
+  h1 {
+    @include title-gradient;
+    font-family: $font-title;
+    font-size: 80px;
+    margin: 0;
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.6;
+    margin-bottom: 0;
+    padding: 0 2rem;
+    color: $color-main-text;
+  }
+}
