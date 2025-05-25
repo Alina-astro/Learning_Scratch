@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import HeroSection from './components/HeroSection/HeroSection';
-import LevelsSection from './components/LevelsSection/LevelsSection';
 import Dashboard from './pages/Dashboard/Dashboard';
 import LessonPage from './pages/LessonPage/LessonPage';
 import AdminPage from './pages/AdminPage/AdminPage';
@@ -24,7 +23,7 @@ export default function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/Learning_Scratch">
       <Header onLogin={handleLoginOpen} onRegister={handleRegisterOpen} />
       {isLoginOpen && <LoginModal onClose={handleCloseModals} />}
       {isRegisterOpen && <RegisterModal onClose={handleCloseModals} />}
