@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import HeroSection from './components/HeroSection/HeroSection';
 import Dashboard from './pages/Dashboard/Dashboard';
 import LessonPage from './pages/LessonPage/LessonPage';
 import AdminPage from './pages/AdminPage/AdminPage';
-
 import LoginModal from './components/Modals/LoginModal';
 import RegisterModal from './components/Modals/RegisterModal';
 
 export default function App() {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isRegisterOpen, setRegisterOpen] = useState(false);
-
+  const navigate = useNavigate();
   const handleLoginOpen = () => setLoginOpen(true);
   const handleRegisterOpen = () => setRegisterOpen(true);
   const handleCloseModals = () => {
     setLoginOpen(false);
     setRegisterOpen(false);
   };
+  const handleLearnClick = (level) => {
+    navigate(`/lesson/${level}/1`);
+  };
 
   return (
-    <Router basename="/Learning_Scratch">
+<>
       <Header onLogin={handleLoginOpen} onRegister={handleRegisterOpen} />
       {isLoginOpen && <LoginModal onClose={handleCloseModals} />}
       {isRegisterOpen && <RegisterModal onClose={handleCloseModals} />}
@@ -34,7 +35,7 @@ export default function App() {
             path="/"
             element={
               <>
-                <HeroSection />
+                <HeroSection onLearnClick={handleLearnClick} />
               </>
             }
           />
@@ -45,7 +46,7 @@ export default function App() {
       </main>
 
       <Footer />
-    </Router>
+      </>
   );
 }
 

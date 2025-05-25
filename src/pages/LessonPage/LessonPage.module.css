@@ -1,1 +1,109 @@
-/*# sourceMappingURL=LessonPage.module.css.map */
+.lessonPage {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(0, 78, 57);
+  line-height: 1.6;
+  text-align: justify;
+}
+.lessonPage h1 {
+  font-weight: 900;
+  color: #006b39;
+  background-image: linear-gradient(0deg, #006b39 35%, #00c76a 40%, #009952 45%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 36px;
+  margin-bottom: 1.5rem;
+}
+.lessonPage .steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.lessonPage .steps img {
+  max-width: 100%;
+  max-height: 500px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.lessonPage .steps .caption {
+  text-align: center;
+  font-size: 18px;
+  color: rgb(95, 95, 95);
+  margin-top: 0.5rem;
+}
+.lessonPage .taskBlock {
+  background: linear-gradient(96deg, #f3f9a7 0%, #fff6b7 48%, #ffd27d 100%);
+  margin-top: 2rem;
+  border: 2px dashed rgb(0, 199, 106);
+  padding: 0 3rem 1rem 3rem;
+  border-radius: 16px;
+}
+.lessonPage .taskBlock h2 {
+  font-size: 28px;
+  color: rgb(0, 78, 57);
+  margin-bottom: 1rem;
+}
+.lessonPage .taskBlock p {
+  font-size: 20px;
+  margin-bottom: 1.5rem;
+}
+.lessonPage .taskBlock label {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+.lessonPage .taskBlock label input,
+.lessonPage .taskBlock label textarea {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  font-family: "Font-main";
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.lessonPage .taskBlock button {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  font-family: "Font-main";
+  font-size: 20px;
+  font-weight: 800;
+  color: rgb(130, 78, 0);
+  margin: 10px 0;
+  padding: 20px 30px;
+  background: linear-gradient(45deg, rgb(255, 233, 138), rgb(255, 204, 77));
+  border: 2px solid rgb(212, 156, 0);
+  border-radius: 20px;
+  box-shadow: 0 6px 0 rgb(212, 156, 0);
+  transition: 0.2s ease;
+  cursor: pointer;
+  font-size: 18px;
+}
+.lessonPage .taskBlock button:hover {
+  background: linear-gradient(45deg, rgb(255, 204, 77), rgb(255, 233, 138));
+  border-color: rgb(212, 156, 0);
+}
+.lessonPage .taskBlock button:active {
+  margin-top: 4px;
+  box-shadow: 0 3px 0 rgba(212, 156, 0, 0.7);
+}
+.lessonPage .taskBlock .status {
+  margin-top: 2rem;
+  font-weight: 700;
+  color: #994d00;
+}
+.lessonPage .notFound {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 4rem;
+  color: red;
+}/*# sourceMappingURL=LessonPage.module.css.map */
