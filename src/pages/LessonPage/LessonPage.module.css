@@ -1,21 +1,34 @@
+h1 {
+  font-weight: 900;
+  color: #006b39;
+  background-image: linear-gradient(0deg, #afa81e 40%, #dee82a 30%, #c0c52c 45%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Font-title";
+  font-size: 70px;
+  text-align: center;
+}
+
 .lessonPage {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
+  padding-bottom: 2rem;
   font-size: 20px;
   font-weight: 600;
   color: rgb(0, 78, 57);
   line-height: 1.6;
   text-align: justify;
 }
-.lessonPage h1 {
+.lessonPage h2 {
   font-weight: 900;
   color: #006b39;
   background-image: linear-gradient(0deg, #006b39 35%, #00c76a 40%, #009952 45%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 36px;
+  font-size: 34px;
+  text-align: left;
   margin-bottom: 1.5rem;
 }
 .lessonPage .steps {
@@ -106,4 +119,21 @@
   font-size: 20px;
   margin-top: 4rem;
   color: red;
+}
+.lessonPage .navigation {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  font-size: 22px;
+  font-weight: 800;
+}
+.lessonPage .navigation .navLink {
+  color: rgb(0, 78, 57);
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.lessonPage .navigation .navLink:hover {
+  text-decoration: underline;
 }/*# sourceMappingURL=LessonPage.module.css.map */

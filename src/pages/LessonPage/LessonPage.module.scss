@@ -1,19 +1,27 @@
 @use "../../assets/styles/variables" as *;
 @use "../../assets/styles/mixins" as *;
 
+h1 {
+  @include title-pages-gradient;
+  font-family: $font-title;
+  font-size: 70px;
+  text-align: center;
+}
+
 .lessonPage {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem;
+  padding-bottom: 2rem;
   font-size: 20px;
   font-weight: 600;
   color: $color-main-text;
   line-height: 1.6;
   text-align: justify;
 
-  h1 {
+  h2 {
     @include title-gradient;
-    font-size: 36px;
+    font-size: 34px;
+    text-align: left;
     margin-bottom: 1.5rem;
   }
 
@@ -93,5 +101,25 @@
     font-size: 20px;
     margin-top: 4rem;
     color: red;
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    font-size: 22px;
+    font-weight: 800;
+
+    .navLink {
+      color: $color-main-text;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.2s;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
