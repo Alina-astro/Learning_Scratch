@@ -30,8 +30,20 @@ const levels = [
       },
     ];
 
-export default function LevelsSection({ onLearnClick }) {
-  return (
+    export default function LevelsSection({ user, onLogin, onLearnClick }) {
+      const handleClick = (levelKey) => {
+        if (!user) {
+          onLogin(); // если не авторизован — открываем модалку входа
+          return;
+        }
+    
+        if (levelKey === 'beginner') {
+          onLearnClick(levelKey); // переход на первый урок
+        } else {
+          alert('Этот уровень находится в разработке 🙈');
+        }
+      };
+      return (
     <section className={styles.levels}>
       {levels.map((level, index) => (
         <div key={index} className={styles.level}>
@@ -43,7 +55,7 @@ export default function LevelsSection({ onLearnClick }) {
               <li key={i}><img src={icon} alt="point" /> <span>{point}</span></li>
             ))}
           </ul>
-          <button className="btn-primary" onClick={() => onLearnClick(level.levelKey)}>Начать обучение</button>
+          <button className="btn-primary" onClick={() => handleClick(level.levelKey)}>Начать обучение</button>
         </div>
       ))}
     </section>

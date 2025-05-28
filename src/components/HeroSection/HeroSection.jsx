@@ -2,7 +2,7 @@ import React from 'react';
 import LevelsSection from '../LevelsSection/LevelsSection';
 import styles from './HeroSection.module.scss';
 
-export default function HeroSection({ onLearnClick, user }) {
+export default function HeroSection({ onLearnClick, user, onLogin }) {
   return (
     <section className={styles.section}>
       <h1>Код Изумрудного города</h1>
@@ -17,7 +17,11 @@ export default function HeroSection({ onLearnClick, user }) {
       <p>
         Здесь девочка Элли откроет вам двери в страну Изумрудного города, где каждый сможет научиться создавать свои цифровые сказки. Путешествуйте по уровням, помогайте друзьям Элли решать задачи и становитесь настоящим волшебником Scratch-программирования!
       </p>
-      <LevelsSection onLearnClick={onLearnClick} />
+      <LevelsSection
+        user={user}
+        onLogin={onLogin}
+        onLearnClick={onLearnClick}
+      />
     </section>
   );
 }

@@ -49,7 +49,11 @@ setUser(null);
             path="/"
             element={
               <>
-                <HeroSection onLearnClick={handleLearnClick} user={user} />
+                <HeroSection
+                  onLearnClick={handleLearnClick}
+                  user={user}
+                  onLogin={handleLoginOpen}
+                />
               </>
             }
           />

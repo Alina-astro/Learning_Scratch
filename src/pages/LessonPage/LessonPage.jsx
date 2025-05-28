@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { lessons } from './lessonData';
 import { fetchProgress } from '../../utils/fetchProgress';
+import TaskForm from '../../components/TaskForm/TaskForm';
 import styles from './LessonPage.module.scss';
 
 export default function LessonPage() {
@@ -24,11 +25,16 @@ export default function LessonPage() {
     }
   }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [lessonId]);
+
   if (!lesson) {
     return <div className={styles.notFound}>Урок не найден</div>;
   }
 
   const { title, lessonNumber, intro, steps, final, task } = lesson;
+  const lessonKey = lessonId;
 
   return (
     <>
@@ -39,9 +45,12 @@ export default function LessonPage() {
           <span className={styles.greeting}>Привет, {user.firstName}!</span>
           <span className={styles.stars}>
             {[1, 2, 3].map((i) => (
-              <span key={i} className={progress?.[i]?.status === 'pending' ? styles.starFilled : styles.starEmpty}>
-                ★
-              </span>
+              <span
+              key={i}
+              className={progress?.[i]?.status !== 'not_started' ? styles.starFilled : styles.starEmpty}
+            >
+              ★
+            </span>
             ))}
           </span>
         </div>
@@ -96,22 +105,20 @@ export default function LessonPage() {
         <h2>Задание</h2>
         <p>{task}</p>
 
-        <label>
-          Прикрепите файл (.sb3):
-          <input type="file" accept=".sb3" />
-        </label>
-
-        <label>
-          Комментарий:
-          <textarea rows="4" placeholder="Напишите, что было самым интересным"></textarea>
-        </label>
-
-        <button className="btn-primary">Отправить</button>
-
-        {/* Заглушка результата проверки */}
-        <div className={styles.status}>
-          Статус: требуется выполнить задание
-        </div>
+        {user && (
+          <TaskForm
+            user={user}
+            level={level}
+            lessonNumber={lessonKey}
+            progress={progress?.[lessonKey]}
+            onProgressUpdate={(newProgress) =>
+              setProgress((prev) => ({
+                ...prev,
+                [lessonKey]: newProgress,
+              }))
+            }
+          />
+        )}
       </div>
 
       <div className={styles.navigation}>
