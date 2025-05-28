@@ -15,6 +15,12 @@ section h1 {
   font-size: 80px;
   margin: 0;
 }
+section .userGreeting {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: rgb(0, 78, 57);
+}
 section p {
   font-size: 20px;
   font-weight: 800;

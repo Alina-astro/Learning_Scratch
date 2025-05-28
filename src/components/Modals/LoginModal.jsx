@@ -4,31 +4,57 @@ import styles from './LoginModal.module.scss';
 import errorIcon from '../../assets/icons/icon-error.png';
 import successIcon from '../../assets/icons/icon-success.png';
 
-export default function LoginModal({ onClose }) {
+export default function LoginModal({ onClose, setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    // Заглушка: просто проверим email и пароль не пустые
+
     if (!email || !password) {
-      setError('Неверный логин или пароль.');
+      setError('Введите email и пароль.');
       setSuccess('');
       return;
     }
-  
-    // "Успешный вход"
-    setError('');
-    setSuccess('Вы успешно вошли!');
-    
-    setTimeout(() => {
-      setSuccess('');
-      onClose();
-    }, 3000);
+
+    try {
+      const response = await fetch('https://learningscratchbackend-production.up.railway.app/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setError(result.message || 'Ошибка входа.');
+        setSuccess('');
+        return;
+      }
+      setUser(result.user);
+      localStorage.setItem('user', JSON.stringify(result.user));
+      console.log('Зарегистрированный пользователь:', result.user); // зарегистрированный пользователь
+
+      // Успешный вход
+      setError('');
+      setSuccess(`Привет, ${result.user.firstName}!`);
+      setEmail('');
+      setPassword('');
+
+      setTimeout(() => {
+        setSuccess('');
+        onClose();
+      }, 3000);
+
+    } catch (err) {
+      console.error('Ошибка запроса:', err);
+      setError('Ошибка сервера. Попробуйте позже.');
+    }
   };
 
   return (

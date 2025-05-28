@@ -1,15 +1,28 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { lessons } from './lessonData';
+import { fetchProgress } from '../../utils/fetchProgress';
 import styles from './LessonPage.module.scss';
 
 export default function LessonPage() {
   const { level, lessonId } = useParams();
+  const user = JSON.parse(localStorage.getItem('user'));
+  const [progress, setProgress] = useState(null);
   const lesson = lessons[level]?.[lessonId];
   const navigate = useNavigate();
   const currentId = parseInt(lessonId, 10);
   const totalLessons = Object.keys(lessons[level]).length;
   console.log('currentId:', currentId, 'totalLessons:', totalLessons);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser?.email) {
+      fetchProgress(storedUser.email).then((data) => {
+        setProgress(data?.progress?.beginner || {});
+      });
+    }
+  }, []);
 
   if (!lesson) {
     return <div className={styles.notFound}>Урок не найден</div>;
@@ -21,7 +34,20 @@ export default function LessonPage() {
     <>
     <h1>{title}</h1>
     <div className={styles.lessonPage}>
+    {user && (
+        <div className={styles.progressBlock}>
+          <span className={styles.greeting}>Привет, {user.firstName}!</span>
+          <span className={styles.stars}>
+            {[1, 2, 3].map((i) => (
+              <span key={i} className={progress?.[i]?.status === 'pending' ? styles.starFilled : styles.starEmpty}>
+                ★
+              </span>
+            ))}
+          </span>
+        </div>
+      )}
     <h2>{lessonNumber}</h2>
+      
       {Array.isArray(intro) ? (
         intro.map((paragraph, i) => (
           <p key={i}>

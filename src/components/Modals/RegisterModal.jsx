@@ -23,41 +23,68 @@ export default function RegisterModal({ onClose }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const { firstName, lastName, email, password, confirmPassword } = formData;
-  
+
+    // Валидация на клиенте
     if (!firstName || !lastName || !email || !password || !confirmPassword) {
       setError('Пожалуйста, заполните все поля.');
       return;
     }
-  
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Введите корректную электронную почту.');
       return;
     }
-  
+
     if (password !== confirmPassword) {
       setError('Пароли не совпадают.');
       return;
     }
-  
-    setError('');
-    setSuccess('Регистрация прошла успешно!');
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    });
 
-    setTimeout(() => {
-      setSuccess('');
-      onClose();
-    }, 5000);
+    // Отправка запроса на сервер
+    try {
+
+      console.log('Отправка данных формы:', { firstName, lastName, email, password, confirmPassword }); // отправка данных формы
+
+      const response = await fetch('https://learningscratchbackend-production.up.railway.app/api/user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName, email, password, confirmPassword }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setError(result.message || 'Ошибка регистрации');
+        return;
+      }
+
+      setError('');
+      setSuccess('Регистрация прошла успешно!');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+
+      // Автоматическое закрытие модального окна
+      setTimeout(() => {
+        setSuccess('');
+        onClose();
+      }, 5000);
+
+    } catch (err) {
+      console.error('Ошибка при отправке запроса:', err);
+      setError('Ошибка сети. Попробуйте позже.');
+    }
   };
 
   return (

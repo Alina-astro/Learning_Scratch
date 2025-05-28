@@ -12,6 +12,10 @@ import RegisterModal from './components/Modals/RegisterModal';
 export default function App() {
   const [isLoginOpen, setLoginOpen] = useState(false);
   const [isRegisterOpen, setRegisterOpen] = useState(false);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const navigate = useNavigate();
   const handleLoginOpen = () => setLoginOpen(true);
   const handleRegisterOpen = () => setRegisterOpen(true);
@@ -19,14 +23,24 @@ export default function App() {
     setLoginOpen(false);
     setRegisterOpen(false);
   };
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+setUser(null);
+  };
+
   const handleLearnClick = (level) => {
     navigate(`/lesson/${level}/1`);
   };
-
+  
   return (
 <>
-      <Header onLogin={handleLoginOpen} onRegister={handleRegisterOpen} />
-      {isLoginOpen && <LoginModal onClose={handleCloseModals} />}
+<Header
+  user={user}
+  onLogin={handleLoginOpen}
+  onRegister={handleRegisterOpen}
+  onLogout={handleLogout}
+/>
+{isLoginOpen && <LoginModal onClose={handleCloseModals} setUser={setUser} />}
       {isRegisterOpen && <RegisterModal onClose={handleCloseModals} />}
 
       <main>
@@ -35,7 +49,7 @@ export default function App() {
             path="/"
             element={
               <>
-                <HeroSection onLearnClick={handleLearnClick} />
+                <HeroSection onLearnClick={handleLearnClick} user={user} />
               </>
             }
           />
