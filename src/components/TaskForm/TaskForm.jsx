@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './TaskForm.module.scss';
 
-export default function TaskForm({ user, level, lessonNumber, onSuccess }) {
+export default function TaskForm({ user, level, lessonNumber, onProgressUpdate }) {
   const [comment, setComment] = useState('');
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState('Статус: требуется выполнить задание');
@@ -42,7 +42,7 @@ export default function TaskForm({ user, level, lessonNumber, onSuccess }) {
 
       setStatus('Статус: урок пройден, задание выполнено!');
       setError('');
-      onSuccess && onSuccess(); // например, для обновления прогресса
+      onProgressUpdate && onProgressUpdate(); // обновление прогресса в LessonPage
       setFile(null);
       setComment('');
     } catch (err) {

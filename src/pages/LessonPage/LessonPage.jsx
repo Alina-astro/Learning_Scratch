@@ -15,14 +15,16 @@ export default function LessonPage() {
   const currentId = parseInt(lessonId, 10);
   const totalLessons = Object.keys(lessons[level]).length;
   console.log('currentId:', currentId, 'totalLessons:', totalLessons);
-
-  useEffect(() => {
+  const loadProgress = async () => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser?.email) {
-      fetchProgress(storedUser.email).then((data) => {
-        setProgress(data?.progress?.beginner || {});
-      });
+      const data = await fetchProgress(storedUser.email);
+      setProgress(data?.progress?.[level] || {});
+      console.log('Текущий прогресс:', data?.progress?.[level]);
     }
+  };
+  useEffect(() => {
+    loadProgress();
   }, []);
 
   useEffect(() => {
@@ -40,18 +42,29 @@ export default function LessonPage() {
     <>
     <h1>{title}</h1>
     <div className={styles.lessonPage}>
+    {console.log('lessonId:', lessonId, 'progress:', progress)}
     {user && (
         <div className={styles.progressBlock}>
           <span className={styles.greeting}>Привет, {user.firstName}!</span>
           <span className={styles.stars}>
-            {[1, 2, 3].map((i) => (
+          {progress &&
+            [1, 2, 3].map((i) => {
+              console.log(`Звезда ${i}:`, progress[String(i)]?.status); // ← вот здесь
+          
+              return (
               <span
-              key={i}
-              className={progress?.[i]?.status !== 'not_started' ? styles.starFilled : styles.starEmpty}
-            >
-              ★
-            </span>
-            ))}
+                key={i}
+                className={
+                  progress[String(i)]?.status && progress[String(i)].status !== 'not_started'
+                    ? styles.starFilled
+                    : styles.starEmpty
+                }
+                
+              >
+                ★
+              </span>
+              );
+            })}
           </span>
         </div>
       )}
@@ -107,17 +120,12 @@ export default function LessonPage() {
 
         {user && (
           <TaskForm
-            user={user}
-            level={level}
-            lessonNumber={lessonKey}
-            progress={progress?.[lessonKey]}
-            onProgressUpdate={(newProgress) =>
-              setProgress((prev) => ({
-                ...prev,
-                [lessonKey]: newProgress,
-              }))
-            }
-          />
+          user={user}
+          level={level}
+          lessonNumber={lessonKey}
+          progress={progress?.[lessonKey]}
+          onProgressUpdate={loadProgress}
+        />
         )}
       </div>
 
