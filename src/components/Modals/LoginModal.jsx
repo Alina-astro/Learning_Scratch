@@ -42,14 +42,14 @@ export default function LoginModal({ onClose, setUser }) {
 
       // Успешный вход
       setError('');
-      setSuccess(`Привет, ${result.user.firstName}!`);
+      setSuccess(`Успешно!`);
       setEmail('');
       setPassword('');
 
       setTimeout(() => {
         setSuccess('');
         onClose();
-      }, 3000);
+      }, 2000);
 
     } catch (err) {
       console.error('Ошибка запроса:', err);

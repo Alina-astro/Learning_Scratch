@@ -7,10 +7,10 @@ export default function HeroSection({ onLearnClick, user, onLogin }) {
     <section className={styles.section}>
       <h1>Код Изумрудного города</h1>
       {user && (
-  <div className={styles.userGreeting}>
-    👋 Добро пожаловать, {user.firstName}!
-  </div>
-)}
+        <div className={styles.userGreeting}>
+          👋 Добро пожаловать, {user.firstName}!
+        </div>
+      )}
       <p>
         Добро пожаловать в мир волшебного программирования!
       </p>

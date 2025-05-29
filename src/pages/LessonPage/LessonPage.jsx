@@ -1,5 +1,7 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import footstepIcon from '../../assets/icons/footstep.png';
+import pawsIcon from '../../assets/icons/paws.png';
 import { useParams, useNavigate } from 'react-router-dom';
 import { lessons } from './lessonData';
 import TaskForm from '../../components/TaskForm/TaskForm';
@@ -12,10 +14,55 @@ export default function LessonPage() {
   const navigate = useNavigate();
   const currentId = parseInt(lessonId, 10);
   const totalLessons = Object.keys(lessons[level]).length;
-  console.log('currentId:', currentId, 'totalLessons:', totalLessons);
+  
+  const [footsteps, setFootsteps] = useState([]); // для следов вниз слева
+  const [paws, setPaws] = useState([]); // для следов вверх справа
+  const lastScrollTop = useRef(0);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    let lastStepTime = Date.now(); // для контроля частоты
+    const handleScroll = () => {
+      const now = Date.now();
+      const timeDiff = now - lastStepTime;
+  
+      if (timeDiff < 300) return; // минимум 300мс между следами
+  
+      lastStepTime = now;
+  
+      const currentY = window.scrollY;
+      const goingDown = currentY > lastScrollTop.current;
+      lastScrollTop.current = currentY;
+  
+      const id = now + Math.random();
+      const yOffset = window.innerHeight / 2 + Math.random() * 50; // немного смещения вниз
+      const scrollTop = window.scrollY;
+  
+      if (goingDown) {
+        setFootsteps(prev => [
+          ...prev.slice(-9),
+          {
+            id,
+            top: scrollTop + yOffset,
+            left: 20 + Math.random() * 10,
+          },
+        ]);
+      } else {
+        setPaws(prev => [
+          ...prev.slice(-9),
+          {
+            id,
+            top: scrollTop + yOffset,
+            right: 20 + Math.random() * 10,
+          },
+        ]);
+      }
+    };
+  
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  
   }, [lessonId]);
 
   if (!lesson) {
@@ -28,6 +75,30 @@ export default function LessonPage() {
     <>
     <h1>{title}</h1>
     <div className={styles.lessonPage}>
+    {footsteps.map(step => (
+          <img
+            key={step.id}
+            src={footstepIcon}
+            alt="след вниз"
+            className={styles.footstep}
+            style={{ top: `${step.top}px`, left: `${step.left}px` }}
+          />
+        ))}
+        {paws.map(paw => (
+          <img
+            key={paw.id}
+            src={pawsIcon}
+            alt="лапка вверх"
+            className={styles.paw}
+            style={{ top: `${paw.top}px`, right: `${paw.right}px` }}
+          />
+        ))}
+      {user && (
+        <div className={styles.greeting}><span className={styles.emoji}>✨ </span>
+         Привет, {user.firstName}!
+        <span className={styles.emoji}>✨</span>
+        </div>
+      )}
     <h2>{lessonNumber}</h2>
       
       {Array.isArray(intro) ? (
@@ -105,7 +176,24 @@ export default function LessonPage() {
           </span>
         )}
       </div>
-      
+      {footsteps.map(step => (
+    <img
+        key={step.id}
+        src={footstepIcon}
+        alt="след"
+        className={styles.footstep}
+        style={{ top: `${step.top}px`, left: `${step.left}px` }}
+      />
+    ))}
+    {paws.map(paw => (
+      <img
+        key={paw.id}
+        src={pawsIcon}
+        alt="лапка"
+        className={styles.paw}
+        style={{ top: `${paw.top}px`, right: `${paw.right}px` }}
+      />
+    ))}
     </div>
     
     </>

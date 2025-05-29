@@ -20,6 +20,34 @@ h1 {
   line-height: 1.6;
   text-align: justify;
 }
+.lessonPage .greeting {
+  font-size: 36px;
+  font-weight: bold;
+  color: rgb(244, 163, 0);
+  text-align: center;
+}
+.lessonPage .emoji {
+  -webkit-animation: blink 2s infinite;
+          animation: blink 2s infinite;
+  display: inline-block;
+  margin-left: 8px;
+}
+@-webkit-keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
 .lessonPage h2 {
   font-weight: 900;
   color: #006b39;
@@ -27,7 +55,7 @@ h1 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 34px;
+  font-size: 32px;
   text-align: left;
   margin-bottom: 1.5rem;
 }
@@ -136,4 +164,42 @@ h1 {
 }
 .lessonPage .navigation .navLink:hover {
   text-decoration: underline;
+}
+.lessonPage .footstep,
+.lessonPage .paw {
+  position: absolute;
+  width: 60px;
+  opacity: 0.85;
+  -webkit-animation: fadeStep 1.4s ease-out forwards;
+          animation: fadeStep 1.4s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+@-webkit-keyframes fadeStep {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(5px);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1) translateY(-5px);
+  }
+}
+@keyframes fadeStep {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(5px);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1) translateY(-5px);
+  }
 }/*# sourceMappingURL=LessonPage.module.css.map */

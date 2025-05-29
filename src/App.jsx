@@ -23,7 +23,8 @@ export default function App() {
   };
   const handleLogout = () => {
     localStorage.removeItem('user');
-setUser(null);
+    setUser(null);
+    navigate('/');
   };
 
   const handleLearnClick = (level) => {

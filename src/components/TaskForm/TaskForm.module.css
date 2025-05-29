@@ -1,0 +1,8 @@
+.form .button {
+  transition: all 0.2s ease;
+}
+.form .button:active {
+  transform: scale(0.95);
+  background-color: #38bdf8;
+  box-shadow: 0 0 10px #38bdf8;
+}/*# sourceMappingURL=TaskForm.module.css.map */

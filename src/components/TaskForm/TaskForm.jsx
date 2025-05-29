@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './TaskForm.module.scss';
 
 export default function TaskForm({ user, level, lessonNumber }) {
   const [comment, setComment] = useState('');
   const [file, setFile] = useState(null);
-  const [status, setStatus] = useState('Статус: требуется выполнить задание');
+  const [status, setStatus] = useState('');
   const [error, setError] = useState('');
+  const fileInputRef = useRef(null);
 
   // Очистка формы при смене урока
   useEffect(() => {
     setComment('');
     setFile(null);
-    setStatus('Статус: требуется выполнить задание');
+    setStatus('Требуется выполнить задание');
     setError('');
   }, [lessonNumber]);
 
@@ -40,9 +41,10 @@ export default function TaskForm({ user, level, lessonNumber }) {
 
       if (!response.ok) throw new Error('Ошибка при отправке');
 
-      setStatus('Статус: урок пройден, задание выполнено!');
+      setStatus('Молодец! Урок пройден, задание выполнено!');
       setError('');
       setFile(null);
+      fileInputRef.current.value = "";
       setComment('');
     } catch (err) {
       console.error(err);
@@ -54,7 +56,7 @@ export default function TaskForm({ user, level, lessonNumber }) {
     <form className={styles.form} onSubmit={handleSubmit} encType="multipart/form-data">
       <label>
         Прикрепить файл:
-        <input type="file" accept=".sb3" onChange={(e) => setFile(e.target.files[0])} />
+        <input ref={fileInputRef} type="file" accept=".sb3" onChange={(e) => setFile(e.target.files[0])} />
       </label>
       <label>
         Комментарий:
@@ -62,7 +64,7 @@ export default function TaskForm({ user, level, lessonNumber }) {
       </label>
       {error && <div className={styles.error}>{error}</div>}
       <div className={styles.status}>{status}</div>
-      <button type="submit">Отправить</button>
+      <button className={styles.button} type="submit">Отправить</button>
     </form>
   );
 }

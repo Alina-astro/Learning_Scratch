@@ -79,7 +79,7 @@ export default function RegisterModal({ onClose }) {
       setTimeout(() => {
         setSuccess('');
         onClose();
-      }, 5000);
+      }, 2000);
 
     } catch (err) {
       console.error('Ошибка при отправке запроса:', err);
