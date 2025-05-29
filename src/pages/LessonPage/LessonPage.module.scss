@@ -23,21 +23,21 @@ h1 {
     font-weight: bold;
     color: $color-level-title;
     text-align: center;
-  }
-
-  .emoji {
-    animation: blink 2s infinite;
-    display: inline-block;
-    margin-left: 8px;
-  }
-
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
+    img {
+      width: 28px;
+      margin: 0 10px;
+      animation: flipMirror 1.5s infinite;
     }
-    50% {
-      opacity: 0.5;
+
+    @keyframes flipMirror {
+      0%,
+      49.9% {
+        transform: scaleX(1); // обычное изображение
+      }
+      50%,
+      100% {
+        transform: scaleX(-1); // зеркальное отображение
+      }
     }
   }
 

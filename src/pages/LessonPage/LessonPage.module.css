@@ -26,26 +26,26 @@ h1 {
   color: rgb(244, 163, 0);
   text-align: center;
 }
-.lessonPage .emoji {
-  -webkit-animation: blink 2s infinite;
-          animation: blink 2s infinite;
-  display: inline-block;
-  margin-left: 8px;
+.lessonPage .greeting img {
+  width: 28px;
+  margin: 0 10px;
+  -webkit-animation: flipMirror 1.5s infinite;
+          animation: flipMirror 1.5s infinite;
 }
-@-webkit-keyframes blink {
-  0%, 100% {
-    opacity: 1;
+@-webkit-keyframes flipMirror {
+  0%, 49.9% {
+    transform: scaleX(1);
   }
-  50% {
-    opacity: 0.5;
+  50%, 100% {
+    transform: scaleX(-1);
   }
 }
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
+@keyframes flipMirror {
+  0%, 49.9% {
+    transform: scaleX(1);
   }
-  50% {
-    opacity: 0.5;
+  50%, 100% {
+    transform: scaleX(-1);
   }
 }
 .lessonPage h2 {

@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import footstepIcon from '../../assets/icons/footstep.png';
 import pawsIcon from '../../assets/icons/paws.png';
+import icon from '../../assets/icons/crystal.png';
 import { useParams, useNavigate } from 'react-router-dom';
 import { lessons } from './lessonData';
 import TaskForm from '../../components/TaskForm/TaskForm';
@@ -94,9 +95,9 @@ export default function LessonPage() {
           />
         ))}
       {user && (
-        <div className={styles.greeting}><span className={styles.emoji}>✨ </span>
-         Привет, {user.firstName}!
-        <span className={styles.emoji}>✨</span>
+        <div className={styles.greeting}><img src={icon} alt="cristal" />
+          Привет, {user.firstName}! 
+         <img src={icon} alt="cristal" />
         </div>
       )}
     <h2>{lessonNumber}</h2>
