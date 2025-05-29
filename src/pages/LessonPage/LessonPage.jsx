@@ -1,31 +1,18 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { lessons } from './lessonData';
-import { fetchProgress } from '../../utils/fetchProgress';
 import TaskForm from '../../components/TaskForm/TaskForm';
 import styles from './LessonPage.module.scss';
 
 export default function LessonPage() {
   const { level, lessonId } = useParams();
   const user = JSON.parse(localStorage.getItem('user'));
-  const [progress, setProgress] = useState(null);
   const lesson = lessons[level]?.[lessonId];
   const navigate = useNavigate();
   const currentId = parseInt(lessonId, 10);
   const totalLessons = Object.keys(lessons[level]).length;
   console.log('currentId:', currentId, 'totalLessons:', totalLessons);
-  const loadProgress = async () => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser?.email) {
-      const data = await fetchProgress(storedUser.email);
-      setProgress(data?.progress?.[level] || {});
-      console.log('Текущий прогресс:', data?.progress?.[level]);
-    }
-  };
-  useEffect(() => {
-    loadProgress();
-  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,38 +23,11 @@ export default function LessonPage() {
   }
 
   const { title, lessonNumber, intro, steps, final, task } = lesson;
-  const lessonKey = lessonId;
 
   return (
     <>
     <h1>{title}</h1>
     <div className={styles.lessonPage}>
-    {console.log('lessonId:', lessonId, 'progress:', progress)}
-    {user && (
-        <div className={styles.progressBlock}>
-          <span className={styles.greeting}>Привет, {user.firstName}!</span>
-          <span className={styles.stars}>
-          {progress &&
-            [1, 2, 3].map((i) => {
-              console.log(`Звезда ${i}:`, progress[String(i)]?.status); // ← вот здесь
-          
-              return (
-              <span
-                key={i}
-                className={
-                  progress[String(i)]?.status && progress[String(i)].status !== 'not_started'
-                    ? styles.starFilled
-                    : styles.starEmpty
-                }
-                
-              >
-                ★
-              </span>
-              );
-            })}
-          </span>
-        </div>
-      )}
     <h2>{lessonNumber}</h2>
       
       {Array.isArray(intro) ? (
@@ -122,9 +82,7 @@ export default function LessonPage() {
           <TaskForm
           user={user}
           level={level}
-          lessonNumber={lessonKey}
-          progress={progress?.[lessonKey]}
-          onProgressUpdate={loadProgress}
+          lessonNumber={lessonId}
         />
         )}
       </div>

@@ -3,9 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import HeroSection from './components/HeroSection/HeroSection';
-import Dashboard from './pages/Dashboard/Dashboard';
 import LessonPage from './pages/LessonPage/LessonPage';
-import AdminPage from './pages/AdminPage/AdminPage';
 import LoginModal from './components/Modals/LoginModal';
 import RegisterModal from './components/Modals/RegisterModal';
 
@@ -57,9 +55,7 @@ setUser(null);
               </>
             }
           />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/lesson/:level/:lessonId" element={<LessonPage />} />
-          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </main>
 
